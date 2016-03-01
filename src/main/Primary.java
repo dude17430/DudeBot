@@ -6,6 +6,7 @@ import org.jibble.pircbot.User;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -16,15 +17,21 @@ public class Primary {
     public static final String channel = "#dude17430";
     private static final String oauth = "oauth:r34jjki08jh8xwpimdnp596xcoaqrm";
     private static final String currencyName = "Dude Points";
+    private static final int pointIncrememnet = 5;
 
     private TwitchBot bot;
     private int timerUpdateDelay = 1;
+    private FileManager fm;
 
     public Primary(TwitchBot bot){
         this.bot = bot;
+        bot.sendP(this);
     }
 
     public void startup() throws IOException, IrcException {
+
+        fm = new FileManager();
+
         bot.setVerbose(true);
         bot.connect("irc.twitch.tv",6667,oauth);
 
@@ -48,14 +55,21 @@ public class Primary {
 
     private void assignRewards(){
         String users = "";
+        System.out.print("assigning rewards to: ");
         for(User u : bot.getUsers(channel)){
-            if(!users.equals("")){users = users+", "+u.getNick();}
-            else{users = u.getNick();}
+            rewardUser(u.getNick());
+            System.out.print(u.getNick()+" ");
         }
-        System.out.println("assigning rewards to: "+users);
+        System.out.println("");
+        System.out.println("awarding done");
     }
 
     private void rewardUser(String nick){
-        //inc time+points
+        try { fm.updateFile(nick, pointIncrememnet, true);
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    public FileManager getFM() {
+        return fm;
     }
 }

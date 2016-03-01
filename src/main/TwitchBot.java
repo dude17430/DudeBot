@@ -11,10 +11,12 @@ import java.util.ArrayList;
 public class TwitchBot extends PircBot {
 
     private ArrayList people;
+    private Primary p;
 
     public TwitchBot(String nick) throws IOException, IrcException {
         System.out.println("Constructing Bot...");
         setName(nick);
+        p = null;
     }
 
     @Override
@@ -33,6 +35,7 @@ public class TwitchBot extends PircBot {
     @Override
     protected void onJoin(String channel, String sender, String login, String hostname) {
         super.onJoin(channel, sender, login, hostname);
+        p.getFM().joined(sender);
     }
 
     @Override
@@ -40,4 +43,7 @@ public class TwitchBot extends PircBot {
         super.onPart(channel, sender, login, hostname);
     }
 
+    public void sendP(Primary primary) {
+        p = primary;
+    }
 }
