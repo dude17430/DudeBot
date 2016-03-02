@@ -23,10 +23,12 @@ public class Primary {
     private int timerHoursUpdateDelay = 1;
     private FileManager fm;
     private GUIManager gm;
+    private String nick;
 
     public Primary(){
+        nick = "dude17bot";
         try {
-            this.bot = new TwitchBot("dude17Bot");
+            this.bot = new TwitchBot(nick);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IrcException e) {

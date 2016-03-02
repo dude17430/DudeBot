@@ -28,6 +28,7 @@ public class GUIManager {
         JFrame frame = new JFrame("DudeBot v: 0.0.1");
         frame.setVisible(true);
         frame.setResizable(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         tf1 = new JTextField("Channel",15);
         tf2 = new JTextField("Bot OAuth",20);
