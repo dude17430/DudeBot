@@ -6,7 +6,6 @@ import org.jibble.pircbot.User;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -16,11 +15,12 @@ public class Primary {
 
     public static final String channel = "#dude17430";
     private static final String oauth = "oauth:r34jjki08jh8xwpimdnp596xcoaqrm";
-    private static final String currencyName = "Dude Points";
+    public static final String currencyName = "Dude Points";
     private static final int pointIncrememnet = 5;
 
     private TwitchBot bot;
-    private int timerUpdateDelay = 1;
+    private int timerRewardsUpdateDelay = 5;
+    private int timerHoursUpdateDelay = 1;
     private FileManager fm;
 
     public Primary(TwitchBot bot){
@@ -40,21 +40,41 @@ public class Primary {
 
         bot.joinChannel(channel);
 
-        Timer rewards = new Timer(timerUpdateDelay*60000, new ActionListener() {
+        Timer rewards = new Timer(timerRewardsUpdateDelay*60000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 assignRewards();
             }
         });
+        Timer hours = new Timer(timerHoursUpdateDelay*60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                assignHours();
+            }
+        });
         rewards.start();
+        hours.start();
     }
 
-    public void calcRank(){
-
+    public String calcRank(String user){
+        double time = fm.getHours(user);
+        String rank = "";
+        if(time>0)
+            rank = "pesant";
+        if(time>5)
+            rank = "farmer";
+        if(time>10)
+            rank = "squire";
+        if(time>50)
+            rank = "knight";
+        if(time>100)
+            rank = "lord";
+        if(time>200)
+            rank = "GODLY";
+        return rank;
     }
 
     private void assignRewards(){
-        String users = "";
         System.out.print("assigning rewards to: ");
         for(User u : bot.getUsers(channel)){
             rewardUser(u.getNick());
@@ -64,8 +84,22 @@ public class Primary {
         System.out.println("awarding done");
     }
 
+    private void assignHours(){
+        System.out.print("assigning hours to: ");
+        for(User u : bot.getUsers(channel)){
+            hourUser(u.getNick());
+            System.out.print(u.getNick()+" ");
+        }
+        System.out.println("");
+        System.out.println("hours'ing done");
+    }
+
     private void rewardUser(String nick){
-        try { fm.updateFile(nick, pointIncrememnet, true);
+        try { fm.updateFile(nick, pointIncrememnet, true,"points");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+    private void hourUser(String nick){
+        try { fm.updateFile(nick, 1, true,"hours");
         } catch (IOException e) { e.printStackTrace(); }
     }
 
