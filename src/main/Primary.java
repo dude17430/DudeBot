@@ -22,6 +22,7 @@ public class Primary {
     private int timerRewardsUpdateDelay = 5;
     private int timerHoursUpdateDelay = 1;
     private FileManager fm;
+    private GUIManager gm;
 
     public Primary(TwitchBot bot){
         this.bot = bot;
@@ -31,6 +32,9 @@ public class Primary {
     public void startup() throws IOException, IrcException {
 
         fm = new FileManager();
+        gm = new GUIManager(this);
+
+        //----------------
 
         bot.setVerbose(true);
         bot.connect("irc.twitch.tv",6667,oauth);

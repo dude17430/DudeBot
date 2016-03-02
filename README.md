@@ -16,6 +16,7 @@ My custom Java Bot for Twitch IRC implementing PircBot 1.5 Library <br>
         - setting channel
         - setting OAuth
         - setting currency name
+        - setting !game
 3. **TODO:**
     * Keep track of settings between sessions(config)
     * mini-games
