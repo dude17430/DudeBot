@@ -1,6 +1,6 @@
 # DudeBot
 My custom Java Bot for Twitch IRC implementing PircBot 1.5 Library
-Done:
+* **Done:**
 connects to server
 commands:
     -!game
@@ -10,12 +10,12 @@ writes and reads to file
     -keeps track of minutes spent in channel
     -keeps track of points
 
-Working On:
+* **Working On:**
 GUI
     -setting channel
     -setting OAuth
     -setting currency name
-TODO:
+* **TODO:**
 Keep track of settings between sessions(config)
 mini-games
 pay-able sounds
