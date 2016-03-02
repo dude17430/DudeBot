@@ -7,7 +7,12 @@ import java.io.*;
  */
 public class FileManager {
 
-    public void updateFile(String name, int pointAdgustmnet, boolean adding,String mode) throws IOException {
+    private Primary p;
+    public FileManager(Primary primary) {
+        p = primary;
+    }
+
+    public void updateFile(String name, int pointAdgustmnet, boolean adding, String mode) throws IOException {
         if(mode.equals("points")){
             int newPoints = 0;
             File originalFile = new File("file.txt");
@@ -100,7 +105,8 @@ public class FileManager {
             FileWriter fw = new FileWriter("file.txt");
             fw.write(
                     "~~~Currency System Database~~~"+System.lineSeparator()+
-                            "dude17430 69");
+                            "dude17430 69 69"+System.lineSeparator()+
+                            ""+p.getNick()+" 1 1");
             fw.flush();
             fw.close();
 

@@ -11,9 +11,7 @@ public class Launcher {
 
     public static void main(String args[]) throws IOException, IrcException {
         System.out.println("Launched");
-        TwitchBot bot = new TwitchBot("dude17Bot");
-
-        Primary p = new Primary(bot);
+        Primary p = new Primary();
         p.startup();
     }
 }

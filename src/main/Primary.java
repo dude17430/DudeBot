@@ -24,14 +24,20 @@ public class Primary {
     private FileManager fm;
     private GUIManager gm;
 
-    public Primary(TwitchBot bot){
-        this.bot = bot;
+    public Primary(){
+        try {
+            this.bot = new TwitchBot("dude17Bot");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IrcException e) {
+            e.printStackTrace();
+        }
         bot.sendP(this);
     }
 
     public void startup() throws IOException, IrcException {
 
-        fm = new FileManager();
+        fm = new FileManager(this);
         gm = new GUIManager(this);
 
         //----------------
@@ -109,5 +115,9 @@ public class Primary {
 
     public FileManager getFM() {
         return fm;
+    }
+
+    public String getNick() {
+        return nick;
     }
 }

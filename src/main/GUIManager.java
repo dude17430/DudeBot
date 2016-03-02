@@ -11,6 +11,12 @@ import java.awt.event.ActionListener;
 public class GUIManager {
 
     private Primary p;
+    private JTextField tf1;
+    private JTextField tf2;
+    private JTextField tf3;
+    private JButton jb1;
+    private JButton jb2;
+    private JButton jb3;
 
     public GUIManager(Primary pr){
         p=pr;
@@ -23,12 +29,16 @@ public class GUIManager {
         frame.setVisible(true);
         frame.setResizable(true);
 
-        JTextField tf1 = new JTextField("Channel",15);
-        JTextField tf2 = new JTextField("Bot OAuth",20);
-        JTextField tf3 = new JTextField("Currency Name",20);
-        JButton jb1 = new JButton("Set Channel");
-        JButton jb2 = new JButton("Set OAuth");
-        JButton jb3 = new JButton("Set Currency Name");
+        tf1 = new JTextField("Channel",15);
+        tf2 = new JTextField("Bot OAuth",20);
+        tf3 = new JTextField("Currency Name",20);
+        jb1 = new JButton("Set Channel");
+        jb2 = new JButton("Set OAuth");
+        jb3 = new JButton("Set Currency Name");
+
+        jb1.addActionListener(new AL1());
+        jb2.addActionListener(new AL2());
+        jb3.addActionListener(new AL3());
 
         frame.setLayout(new GridLayout(3,2));//row,col
         frame.add(tf1);
@@ -44,7 +54,8 @@ public class GUIManager {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            String text = tf1.getText();
+            System.out.println(text);
         }
     }
     public class AL2 implements ActionListener {//OAuth
