@@ -12,13 +12,13 @@ My custom Java Bot for Twitch IRC implementing PircBot 1.5 Library <br>
     * keeps track of points
 
 2. **Working On:**
+    * Keep track of settings between sessions(config)
     * GUI
         - setting channel
         - setting OAuth
         - setting currency name
         - setting !game
-3. **TODO:**
-    * Keep track of settings between sessions(config)
+3. **To Do:**
     * mini-games
     * pay-able sounds
     * intro (text+sound)

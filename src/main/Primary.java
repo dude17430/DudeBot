@@ -67,7 +67,7 @@ public class Primary {
         rewards.start();
         hours.start();
     }
-
+    //TODO: Rank config/setting
     public String calcRank(String user){
         double time = fm.getHours(user);
         String rank = "";

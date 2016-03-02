@@ -8,8 +8,74 @@ import java.io.*;
 public class FileManager {
 
     private Primary p;
+    private static final double configversion = 0.2555;
+
     public FileManager(Primary primary) {
         p = primary;
+        loadConfig();
+    }
+
+    private void loadConfig() {
+        File configFile = new File("BotConfig.txt");
+        if(!configFile.exists()) {
+            System.out.println("config !exists");
+            createConfig();
+        }else {
+            System.out.println("config exists");
+        }
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(configFile));
+            String line;
+            double d;
+            boolean create = false;
+            while((line = br.readLine()) != null){
+                if(line.contains("Config_Version=")){
+                    d = Double.parseDouble(line.substring(line.indexOf(" "),line.length()).trim());
+                    if (d != configversion){
+                        create = true;
+                    }
+                }
+            }
+            br.close();
+            if (create)
+                createConfig();
+            BufferedReader br2 = new BufferedReader(new FileReader(configFile));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void adjustConfig(){
+    }
+
+    private void createConfig(){
+        System.out.println("creating config");
+
+        File configFile = new File("BotConfig.txt");
+
+
+        try {
+            PrintWriter pw = new PrintWriter(new FileWriter(configFile));
+
+            pw.println("~~~Config System Database~~~");
+            pw.println("Config_Version= "+configversion);
+            pw.println("messing with the structure of this file may break the program ONLY change VALUES");
+            pw.println("if it breaks rename THIS file, to generate a new one, then transfer your values");
+            pw.println("WARNING: new version of program may reset your config's, rename config before updates");
+            pw.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            pw.println("Username= Username");
+            pw.println("OAuth= OAuth");
+            pw.println("Channel= Channel");
+            pw.println("Currency Name= Currency");
+            pw.println("");
+
+            pw.flush();
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateFile(String name, int pointAdgustmnet, boolean adding, String mode) throws IOException {

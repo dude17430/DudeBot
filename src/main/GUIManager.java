@@ -57,20 +57,28 @@ public class GUIManager {
         public void actionPerformed(ActionEvent e) {
             String text = tf1.getText();
             System.out.println(text);
+            //TODO: Channel setting, config
         }
     }
     public class AL2 implements ActionListener {//OAuth
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            //TODO: OAuth setting, config
         }
     }
     public class AL3 implements ActionListener {//Currency Name
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            //TODO: Currency Name setting, config
+        }
+    }
+    public class AL4 implements ActionListener {//Connect
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //TODO: implement connect
         }
     }
 }
