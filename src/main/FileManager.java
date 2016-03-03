@@ -8,7 +8,7 @@ import java.io.*;
 public class FileManager {
 
     private Primary p;
-    private static final double configversion = 0.2555;
+    private static final double configversion = 0.3;
 
     public FileManager(Primary primary) {
         p = primary;
@@ -40,14 +40,32 @@ public class FileManager {
             if (create)
                 createConfig();
             BufferedReader br2 = new BufferedReader(new FileReader(configFile));
+            while((line = br2.readLine()) != null){
+                if(line.contains("username=")){
+                    System.out.println("LOADED - Username: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setUsername(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+                if(line.contains("oauth=")){
+                    System.out.println("LOADED - oauth: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setOauth(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+                if(line.contains("channel=")){
+                    System.out.println("LOADED - oauth: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setChannel(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+                if(line.contains("currencyname=")){
+                    System.out.println("LOADED - oauth: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setCurrencyName(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+            }
+            br.close();
+            br2.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    public void adjustConfig(){
     }
 
     private void createConfig(){
@@ -65,10 +83,10 @@ public class FileManager {
             pw.println("if it breaks rename THIS file, to generate a new one, then transfer your values");
             pw.println("WARNING: new version of program may reset your config's, rename config before updates");
             pw.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            pw.println("Username= Username");
-            pw.println("OAuth= OAuth");
-            pw.println("Channel= Channel");
-            pw.println("Currency Name= Currency");
+            pw.println("username= Username");
+            pw.println("oauth= OAuth");
+            pw.println("channel= Channel");
+            pw.println("currencyname= Currency");
             pw.println("");
 
             pw.flush();
@@ -253,6 +271,7 @@ public class FileManager {
         }
         return Integer.parseInt(strPoints.trim());
     }
+
     public double getHours(String user){
         File originalFile = new File("file.txt");
         BufferedReader br = null;
@@ -280,5 +299,41 @@ public class FileManager {
             e.printStackTrace();
         }
         return time;
+    }
+
+    public void writeConfig(String key, String value) {
+        File configFile = new File("BotConfig.txt");
+        File tempFile = new File("tempfileconfig.txt");
+        try {
+            BufferedReader br_config = new BufferedReader(new FileReader(configFile));
+            PrintWriter pw_config = new PrintWriter(new FileWriter(tempFile));
+            String line;
+            while((line = br_config.readLine()) != null){
+                if(line.contains(key)){
+                    pw_config.println(key+"= "+value);
+                    pw_config.flush();
+                } else {
+                    pw_config.println(line);
+                }
+            }
+//            System.gc();//bad practice but makes it be able to delete/rename file... dunno why....
+            pw_config.close();
+            br_config.close();
+
+            // Delete the original file
+            if (!configFile.delete()) {
+                System.out.println("Could not delete file");
+            }
+
+            // Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(configFile))
+                System.out.println("Could not rename file");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

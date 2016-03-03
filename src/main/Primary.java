@@ -24,6 +24,10 @@ public class Primary {
     private FileManager fm;
     private GUIManager gm;
     private String nick;
+    private String username;
+    private String oauthT;
+    private String channelT;
+    private String currencyNameT;
 
     public Primary(){
         nick = "dude17bot";
@@ -121,5 +125,42 @@ public class Primary {
 
     public String getNick() {
         return nick;
+    }
+
+    public void setUsername(String s, boolean b){
+        username = s;
+        if(b == true)
+            fm.writeConfig("username", s);
+    }
+    public void setOauth(String s, boolean b){
+        oauthT = s;
+        if(b == true)
+            fm.writeConfig("oauth", s);
+    }
+    public void setChannel(String s, boolean b){
+        channelT = s;
+        if(b == true)
+            fm.writeConfig("channel", s);
+    }
+    public void setCurrencyName(String s, boolean b){
+        currencyNameT = s;
+        if(b == true)
+            fm.writeConfig("currencyname", s);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getOauthT() {
+        return oauthT;
+    }
+
+    public String getChannelT() {
+        return channelT;
+    }
+
+    public String getCurrencyNameT() {
+        return currencyNameT;
     }
 }
