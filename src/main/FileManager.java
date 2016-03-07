@@ -2,6 +2,7 @@ package main;
 
 import java.io.*;
 
+
 /**
  * Created by dude1_000 on 1/22/2016.
  */
@@ -101,23 +102,23 @@ public class FileManager {
                 }
                 if(line.contains("rankTwoReq=")){
                     System.out.println("LOADED - rankTwoReq: "+line.substring(line.indexOf(" ")+1,line.length()));
-                    p.setRankTwoReq(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                    p.setRankTwoReq(Double.parseDouble(line.substring(line.indexOf(" ")+1,line.length())), false);
                 }
                 if(line.contains("rankThreeReq=")){
                     System.out.println("LOADED - rankThreeReq: "+line.substring(line.indexOf(" ")+1,line.length()));
-                    p.setRankThreeReq(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                    p.setRankThreeReq(Double.parseDouble(line.substring(line.indexOf(" ")+1,line.length())), false);
                 }
                 if(line.contains("rankFourReq=")){
                     System.out.println("LOADED - rankFourReq: "+line.substring(line.indexOf(" ")+1,line.length()));
-                    p.setRankFourReq(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                    p.setRankFourReq(Double.parseDouble(line.substring(line.indexOf(" ")+1,line.length())), false);
                 }
                 if(line.contains("rankFiveReq=")){
                     System.out.println("LOADED - rankFiveReq: "+line.substring(line.indexOf(" ")+1,line.length()));
-                    p.setRankFiveReq(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                    p.setRankFiveReq(Double.parseDouble(line.substring(line.indexOf(" ")+1,line.length())), false);
                 }
                 if(line.contains("rankSixReq=")){
                     System.out.println("LOADED - rankSixReq: "+line.substring(line.indexOf(" ")+1,line.length()));
-                    p.setRankSixReq(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                    p.setRankSixReq(Double.parseDouble(line.substring(line.indexOf(" ")+1,line.length())), false);
                 }
             }
             br.close();

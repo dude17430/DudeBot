@@ -21,7 +21,7 @@ public class TwitchBot extends PircBot {
 
     @Override
     protected void onMessage(String channel, String sender, String login, String hostname, String message) {
-        if(channel.equalsIgnoreCase(p.getChannelT())){
+        if(channel.equalsIgnoreCase(p.getChannel())){
             if(message.equalsIgnoreCase("!game")){
                 sendMessage(channel, "My Master the Great and Mighty Dude is playing Minecraft!");
             }
@@ -37,7 +37,7 @@ public class TwitchBot extends PircBot {
     protected void onJoin(String channel, String sender, String login, String hostname) {
         super.onJoin(channel, sender, login, hostname);
         if(sender == "dude17bot"){
-            getUsers(p.getChannelT());
+            getUsers(p.getChannel());
         }
         p.getFM().joined(sender);
     }

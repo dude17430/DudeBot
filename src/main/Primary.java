@@ -199,37 +199,37 @@ public class Primary {
     public void setRankOneReq(double s, Boolean b) {
         this.rankOneReq = s;
         if(b == true)
-            fm.writeConfig("rankSixName", String.valueOf(rankOneReq));
+            fm.writeConfig("rankOneReq", String.valueOf(rankOneReq));
     }
 
     public void setRankTwoReq(double s, Boolean b) {
         this.rankTwoReq = s;
         if(b == true)
-            fm.writeConfig("rankSixName", String.valueOf(rankTwoReq));
+            fm.writeConfig("rankTwoReq", String.valueOf(rankTwoReq));
     }
 
     public void setRankThreeReq(double s, Boolean b) {
         this.rankThreeReq = s;
         if(b == true)
-            fm.writeConfig("rankSixName", String.valueOf(rankThreeReq));
+            fm.writeConfig("rankThreeReq", String.valueOf(rankThreeReq));
     }
 
     public void setRankFourReq(double s, Boolean b) {
         this.rankFourReq = s;
         if(b == true)
-            fm.writeConfig("rankSixName", String.valueOf(rankFourReq));
+            fm.writeConfig("rankFourReq", String.valueOf(rankFourReq));
     }
 
     public void setRankFiveReq(double s, Boolean b) {
         this.rankFiveReq = s;
         if(b == true)
-            fm.writeConfig("rankSixName", String.valueOf(rankFiveReq));
+            fm.writeConfig("rankFiveReq", String.valueOf(rankFiveReq));
     }
 
     public void setRankSixReq(double s, Boolean b) {
         this.rankSixReq = s;
         if(b == true)
-            fm.writeConfig("rankSixName", String.valueOf(rankSixReq));
+            fm.writeConfig("rankSixReq", String.valueOf(rankSixReq));
     }
 
     public int getTimerRewardsUpdateDelay() {
@@ -244,7 +244,7 @@ public class Primary {
         return oauth;
     }
 
-    public String getChannelT() {
+    public String getChannel() {
         return channel;
     }
 
@@ -293,5 +293,53 @@ public class Primary {
         });
         rewards.start();
         hours.start();
+    }
+
+    public String getRankOneName() {
+        return rankOneName;
+    }
+
+    public String getRankTwoName() {
+        return rankTwoName;
+    }
+
+    public String getRankThreeName() {
+        return rankThreeName;
+    }
+
+    public String getRankFourName() {
+        return rankFourName;
+    }
+
+    public String getRankFiveName() {
+        return rankFiveName;
+    }
+
+    public String getRankSixName() {
+        return rankSixName;
+    }
+
+    public double getRankOneReq() {
+        return rankOneReq;
+    }
+
+    public double getRankTwoReq() {
+        return rankTwoReq;
+    }
+
+    public double getRankThreeReq() {
+        return rankThreeReq;
+    }
+
+    public double getRankFourReq() {
+        return rankFourReq;
+    }
+
+    public double getRankFiveReq() {
+        return rankFiveReq;
+    }
+
+    public double getRankSixReq() {
+        return rankSixReq;
     }
 }

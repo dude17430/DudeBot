@@ -91,7 +91,7 @@ public class GUIManager {
         jl1 = new JLabel("Point Update Freq. (min):");
         jl2 = new JLabel("Point Update amount:");
 
-        tf1 = new JTextField(p.getChannelT(),15);
+        tf1 = new JTextField(p.getChannel(),15);
         tf2 = new JTextField(p.getUsername(),20);
         tf3 = new JTextField(p.getOauthT(),20);
         tf4 = new JTextField(p.getCurrencyNameT(),20);
@@ -120,28 +120,34 @@ public class GUIManager {
 
         jl3 = new JLabel("Rank Name");
         jl4 = new JLabel("Required Hours (decimal allowed)");
-        jl5 = new JLabel("");
+        jl5 = new JLabel("keep rank req's ascending");
 
-        tf7 = new JTextField("r1 name",20);
-        tf8 = new JTextField("r2 name",20);
-        tf9 = new JTextField("r3 name",20);
-        tf10 = new JTextField("r4 name",20);
-        tf11 = new JTextField("r5 name",20);
-        tf12 = new JTextField("r6 name",20);
+        tf7 = new JTextField(p.getRankOneName(),20);
+        tf8 = new JTextField(p.getRankTwoName(),20);
+        tf9 = new JTextField(p.getRankThreeName(),20);
+        tf10 = new JTextField(p.getRankFourName(),20);
+        tf11 = new JTextField(p.getRankFiveName(),20);
+        tf12 = new JTextField(p.getRankSixName(),20);
 
-        tf13 = new JTextField("r1 requirement",20);
-        tf14 = new JTextField("r2 requirement",20);
-        tf15 = new JTextField("r3 requirement",20);
-        tf16 = new JTextField("r4 requirement",20);
-        tf17 = new JTextField("r5 requirement",20);
-        tf18 = new JTextField("r6 requirement",20);
+        tf13 = new JTextField(String.valueOf(p.getRankOneReq()),20);
+        tf14 = new JTextField(String.valueOf(p.getRankTwoReq()),20);
+        tf15 = new JTextField(String.valueOf(p.getRankThreeReq()),20);
+        tf16 = new JTextField(String.valueOf(p.getRankFourReq()),20);
+        tf17 = new JTextField(String.valueOf(p.getRankFiveReq()),20);
+        tf18 = new JTextField(String.valueOf(p.getRankSixReq()),20);
 
         jb10 = new JButton("Set Rank 1");
+        jb10.addActionListener(new ALSetRankOne());
         jb11 = new JButton("Set Rank 2");
+        jb11.addActionListener(new ALSetRankTwo());
         jb12 = new JButton("Set Rank 3");
+        jb12.addActionListener(new ALSetRankThree());
         jb13 = new JButton("Set Rank 4");
+        jb13.addActionListener(new ALSetRankFour());
         jb14 = new JButton("Set Rank 5");
+        jb14.addActionListener(new ALSetRankFive());
         jb15 = new JButton("Set Rank 6");
+        jb15.addActionListener(new ALSetRankSix());
 
         frame.add(jpContainer);
         jpContainer.add(jpContainerTop);

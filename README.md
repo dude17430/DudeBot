@@ -15,13 +15,15 @@ My custom Java Bot for Twitch IRC implementing PircBot 1.5 Library <br>
         - setting channel
         - setting OAuth
         - setting currency name
+        - setting rank names
+        - setting rank requirements (hours)
 
 2. **Working On:**
     * Disconnect (without closing)
+    * announcement of rank ups
     * GUI
-        - setting rank names
-        - setting rank requirements (hours)
         - setting !game
+        - bonus point(s) configuration for mods
 3. **To Do:**
     * mini-games
     * pay-able sounds
