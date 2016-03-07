@@ -8,7 +8,7 @@ import java.io.*;
 public class FileManager {
 
     private Primary p;
-    private static final double configversion = 0.5;
+    private static final double configversion = 6.0;
 
     public FileManager(Primary primary) {
         p = primary;
@@ -69,6 +69,56 @@ public class FileManager {
                     System.out.println("LOADED - timerHoursUpdateDelay Name: "+line.substring(line.indexOf(" ")+1,line.length()));
                     p.setPointIncrememnet(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
                 }
+                //------------------------------------------------
+                if(line.contains("rankOneName=")){
+                    System.out.println("LOADED - rankOneName: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankOneName(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+                if(line.contains("rankTwoName=")){
+                    System.out.println("LOADED - rankTwoName: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankTwoName(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+                if(line.contains("rankThreeName=")){
+                    System.out.println("LOADED - rankThreeName: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankThreeName(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+                if(line.contains("rankFourName=")){
+                    System.out.println("LOADED - rankFourName: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankFourName(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+                if(line.contains("rankFiveName=")){
+                    System.out.println("LOADED - rankFiveName: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankFiveName(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+                if(line.contains("rankSixName=")){
+                    System.out.println("LOADED - rankSixName: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankSixName(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+                //------------------------------------------------
+                if(line.contains("rankOneReq=")){
+                    System.out.println("LOADED - rankOneReq: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankOneReq(Double.parseDouble(line.substring(line.indexOf(" ")+1,line.length())), false);
+                }
+                if(line.contains("rankTwoReq=")){
+                    System.out.println("LOADED - rankTwoReq: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankTwoReq(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                }
+                if(line.contains("rankThreeReq=")){
+                    System.out.println("LOADED - rankThreeReq: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankThreeReq(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                }
+                if(line.contains("rankFourReq=")){
+                    System.out.println("LOADED - rankFourReq: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankFourReq(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                }
+                if(line.contains("rankFiveReq=")){
+                    System.out.println("LOADED - rankFiveReq: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankFiveReq(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                }
+                if(line.contains("rankSixReq=")){
+                    System.out.println("LOADED - rankSixReq: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setRankSixReq(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                }
             }
             br.close();
             br2.close();
@@ -103,6 +153,18 @@ public class FileManager {
             pw.println("timerHoursUpdateDelay= 1");
             pw.println("timerRewardsUpdateDelay= 5");
             pw.println("pointIncrememnet= 5");
+            pw.println("rankOneName= Peasant");
+            pw.println("rankTwoName= Farmer");
+            pw.println("rankThreeName= Squire");
+            pw.println("rankFourName= Knight");
+            pw.println("rankFiveName= Lord");
+            pw.println("rankSixName= GODLY");
+            pw.println("rankOneReq= 0");
+            pw.println("rankTwoReq= 5");
+            pw.println("rankThreeReq= 10");
+            pw.println("rankFourReq= 50");
+            pw.println("rankFiveReq= 100");
+            pw.println("rankSixReq= 200");
             pw.println("");
 
             pw.flush();

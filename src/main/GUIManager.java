@@ -73,7 +73,7 @@ public class GUIManager {
     }
 
     private void construct(){
-        JFrame frame = new JFrame("DudeBot v: 0.0.5");
+        JFrame frame = new JFrame("DudeBot v: 0.0.6a");
         frame.setVisible(true);
         frame.setResizable(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,19 +107,19 @@ public class GUIManager {
         jb8 = new JButton("+");
         jb9 = new JButton("-");
 
-        jb1.addActionListener(new AL1());
-        jb2.addActionListener(new AL2());
-        jb3.addActionListener(new AL3());
-        jb4.addActionListener(new AL4());
-        jb5.addActionListener(new AL5());
-        jb6.addActionListener(new AL6());
-        jb7.addActionListener(new AL7());
-        jb8.addActionListener(new AL8());
-        jb9.addActionListener(new AL9());
+        jb1.addActionListener(new ALSetChannel());
+        jb2.addActionListener(new ALSetUsername());
+        jb3.addActionListener(new ALSetOAuth());
+        jb4.addActionListener(new ALSetCurrencyName());
+        jb5.addActionListener(new ALConnect());
+        jb6.addActionListener(new ALPointFreqAdd());
+        jb7.addActionListener(new ALPointFreqMinus());
+        jb8.addActionListener(new ALPointsAdd());
+        jb9.addActionListener(new ALPointsMinus());
 
 
         jl3 = new JLabel("Rank Name");
-        jl4 = new JLabel("Required Hours");
+        jl4 = new JLabel("Required Hours (decimal allowed)");
         jl5 = new JLabel("");
 
         tf7 = new JTextField("r1 name",20);
@@ -199,31 +199,31 @@ public class GUIManager {
 
         frame.pack();
     }
-    public class AL1 implements ActionListener {//channel
+    public class ALSetChannel implements ActionListener {//channel
         @Override
         public void actionPerformed(ActionEvent e) {
             p.setChannel(tf1.getText(), true);
         }
     }
-    public class AL2 implements ActionListener {//OAuth
+    public class ALSetUsername implements ActionListener {//Username
         @Override
         public void actionPerformed(ActionEvent e) {
             p.setUsername(tf2.getText(), true);
         }
     }
-    public class AL3 implements ActionListener {//Currency Name
+    public class ALSetOAuth implements ActionListener {//OAuth
         @Override
         public void actionPerformed(ActionEvent e) {
             p.setOauth(tf3.getText(), true);
         }
     }
-    public class AL4 implements ActionListener {//Currency Name
+    public class ALSetCurrencyName implements ActionListener {//Currency Name
         @Override
         public void actionPerformed(ActionEvent e) {
             p.setCurrencyName(tf4.getText(), true);
         }
     }
-    public class AL5 implements ActionListener {//Connect
+    public class ALConnect implements ActionListener {//Connect
         @Override //TODO: Disconnect
         public void actionPerformed(ActionEvent e) {
             try {
@@ -235,7 +235,7 @@ public class GUIManager {
             }
         }
     }
-    public class AL6 implements ActionListener {//+Points Update Freq.
+    public class ALPointFreqAdd implements ActionListener {//+Points Update Freq.
         @Override
         public void actionPerformed(ActionEvent e) {
             int i = p.getTimerRewardsUpdateDelay();
@@ -245,7 +245,7 @@ public class GUIManager {
             p.resetTimers();
         }
     }
-    public class AL7 implements ActionListener {//-Points Update Freq.
+    public class ALPointFreqMinus implements ActionListener {//-Points Update Freq.
         @Override
         public void actionPerformed(ActionEvent e) {
             int i = p.getTimerRewardsUpdateDelay();
@@ -257,7 +257,7 @@ public class GUIManager {
             }
         }
     }
-    public class AL8 implements ActionListener {//+Points
+    public class ALPointsAdd implements ActionListener {//+Points
         @Override
         public void actionPerformed(ActionEvent e) {
             int i = p.getPointIncrememnet();
@@ -266,7 +266,7 @@ public class GUIManager {
             tf6.setText(String.valueOf(p.getTimerRewardsUpdateDelay()));
         }
     }
-    public class AL9 implements ActionListener {//-Points
+    public class ALPointsMinus implements ActionListener {//-Points
         @Override
         public void actionPerformed(ActionEvent e) {
             int i = p.getPointIncrememnet();
@@ -275,6 +275,13 @@ public class GUIManager {
                 p.setPointIncrememnet(i,true);
                 tf6.setText(String.valueOf(p.getTimerRewardsUpdateDelay()));
             }
+        }
+    }
+    public class ALSetRankOne implements ActionListener {//-Points
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            p.setRankOneName(tf7.getText(),true);
+            p.setRankOneReq(Double.parseDouble(tf13.getText()),true);
         }
     }
 }

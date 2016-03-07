@@ -27,13 +27,25 @@ public class Primary {
     private String oauth;
     private String channel;
     private String currencyName;
-    private boolean connected;
     private Timer rewards;
     private Timer hours;
 
+    private String rankOneName;
+    private String rankTwoName;
+    private String rankThreeName;
+    private String rankFourName;
+    private String rankFiveName;
+    private String rankSixName;
+
+    private double rankOneReq;
+    private double rankTwoReq;
+    private double rankThreeReq;
+    private double rankFourReq;
+    private double rankFiveReq;
+    private double rankSixReq;
+
     public Primary(){
         username = "dude17bot";
-        connected = false;
         try {
             this.bot = new TwitchBot(username);
         } catch (IOException e) {
@@ -59,18 +71,18 @@ public class Primary {
     public String calcRank(String user){
         double time = fm.getHours(user);
         String rank = "";
-        if(time>0)
-            rank = "pesant";
-        if(time>5)
-            rank = "farmer";
-        if(time>10)
-            rank = "squire";
-        if(time>50)
-            rank = "knight";
-        if(time>100)
-            rank = "lord";
-        if(time>200)
-            rank = "GODLY";
+        if(time>rankOneReq)
+            rank = rankOneName;
+        if(time>rankTwoReq)
+            rank = rankTwoName;
+        if(time>rankThreeReq)
+            rank = rankThreeName;
+        if(time>rankFourReq)
+            rank = rankFourName;
+        if(time>rankFiveReq)
+            rank = rankFiveName;
+        if(time>rankSixReq)
+            rank = rankSixName;
         return rank;
     }
 
@@ -112,16 +124,19 @@ public class Primary {
         if(b == true)
             fm.writeConfig("username", s);
     }
+
     public void setOauth(String s, boolean b){
         oauth = s;
         if(b == true)
             fm.writeConfig("oauth", s);
     }
+
     public void setChannel(String s, boolean b){
         channel = s;
         if(b == true)
             fm.writeConfig("channel", s);
     }
+
     public void setCurrencyName(String s, boolean b){
         currencyName = s;
         if(b == true)
@@ -150,6 +165,73 @@ public class Primary {
             fm.writeConfig("timerHoursUpdateDelay", String.valueOf(timerHoursUpdateDelay));
     }
 
+    public void setRankOneName(String s, Boolean b) {
+        rankOneName = s;
+        if(b == true)
+            fm.writeConfig("rankOneName", rankOneName);
+    }
+    public void setRankTwoName(String s, Boolean b) {
+        rankTwoName = s;
+        if(b == true)
+            fm.writeConfig("rankTwoName", rankTwoName);
+    }
+    public void setRankThreeName(String s, Boolean b) {
+        rankThreeName = s;
+        if(b == true)
+            fm.writeConfig("rankThreeName", rankThreeName);
+    }
+    public void setRankFourName(String s, Boolean b) {
+        rankFourName = s;
+        if(b == true)
+            fm.writeConfig("rankFourName", rankFourName);
+    }
+    public void setRankFiveName(String s, Boolean b) {
+        rankFiveName = s;
+        if(b == true)
+            fm.writeConfig("rankFiveName", rankFiveName);
+    }
+    public void setRankSixName(String s, Boolean b) {
+        rankSixName = s;
+        if(b == true)
+            fm.writeConfig("rankSixName", rankSixName);
+    }
+
+    public void setRankOneReq(double s, Boolean b) {
+        this.rankOneReq = s;
+        if(b == true)
+            fm.writeConfig("rankSixName", String.valueOf(rankOneReq));
+    }
+
+    public void setRankTwoReq(double s, Boolean b) {
+        this.rankTwoReq = s;
+        if(b == true)
+            fm.writeConfig("rankSixName", String.valueOf(rankTwoReq));
+    }
+
+    public void setRankThreeReq(double s, Boolean b) {
+        this.rankThreeReq = s;
+        if(b == true)
+            fm.writeConfig("rankSixName", String.valueOf(rankThreeReq));
+    }
+
+    public void setRankFourReq(double s, Boolean b) {
+        this.rankFourReq = s;
+        if(b == true)
+            fm.writeConfig("rankSixName", String.valueOf(rankFourReq));
+    }
+
+    public void setRankFiveReq(double s, Boolean b) {
+        this.rankFiveReq = s;
+        if(b == true)
+            fm.writeConfig("rankSixName", String.valueOf(rankFiveReq));
+    }
+
+    public void setRankSixReq(double s, Boolean b) {
+        this.rankSixReq = s;
+        if(b == true)
+            fm.writeConfig("rankSixName", String.valueOf(rankSixReq));
+    }
+
     public int getTimerRewardsUpdateDelay() {
         return timerRewardsUpdateDelay;
     }
@@ -171,7 +253,6 @@ public class Primary {
     }
 
     public void  connect() throws IOException, IrcException {
-        connected = false;
         bot.connect("irc.twitch.tv",6667,oauth);
 
         if(!bot.isConnected())
