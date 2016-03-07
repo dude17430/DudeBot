@@ -20,6 +20,21 @@ public class GUIManager {
     private JTextField tf4;
     private JTextField tf5;
     private JTextField tf6;
+
+    private JTextField tf7;
+    private JTextField tf8;
+    private JTextField tf9;
+    private JTextField tf10;
+    private JTextField tf11;
+    private JTextField tf12;
+
+    private JTextField tf13;
+    private JTextField tf14;
+    private JTextField tf15;
+    private JTextField tf16;
+    private JTextField tf17;
+    private JTextField tf18;
+
     private JButton jb1;
     private JButton jb2;
     private JButton jb3;
@@ -29,13 +44,27 @@ public class GUIManager {
     private JButton jb7;
     private JButton jb8;
     private JButton jb9;
-    private JPanel jp1;
-    private JPanel jp2;
-    private JPanel jp3;
-    private JPanel jp4;
-    private JPanel jp5;
+
+    private JButton jb10;
+    private JButton jb11;
+    private JButton jb12;
+    private JButton jb13;
+    private JButton jb14;
+    private JButton jb15;
+
+    private JPanel jpContainer;//holds containerTop and BottomSplit
+    private JPanel jpContainerTop;//holds topSetters and topSetters 2
+    private JPanel jpTopSetters;
+    private JPanel jpTopSetters2;
+    private JPanel jpBottomSplit;
+    private JPanel jp3;// holds 4 and 5
+    private JPanel jp4;//holds labels so avoid awkward sized stuff
+    private JPanel jp5;//holds incrementers for points updating
     private JLabel jl1;
     private JLabel jl2;
+    private JLabel jl3;
+    private JLabel jl4;
+    private JLabel jl5;
 
     public GUIManager(Primary pr){
         p=pr;
@@ -48,9 +77,13 @@ public class GUIManager {
         frame.setVisible(true);
         frame.setResizable(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(2,1));//row,col
-        jp1 = new JPanel(new GridLayout(5,2));//row,col
-        jp2 = new JPanel(new GridLayout(2,1));//row,col
+        frame.setLayout(new FlowLayout());//row,col
+        jpContainer = new JPanel();
+        jpContainer.setLayout(new BoxLayout(jpContainer,BoxLayout.Y_AXIS));
+        jpContainerTop = new JPanel(new GridLayout(1,2));
+        jpTopSetters = new JPanel(new GridLayout(5,2));//row,col
+        jpTopSetters2 = new JPanel(new GridLayout(7,3));//row,col
+        jpBottomSplit = new JPanel(new GridLayout(2,1));//row,col
         jp3 = new JPanel(new FlowLayout());
         jp4 = new JPanel(new GridLayout(2,1));//row,col
         jp5 = new JPanel(new GridLayout(2,3));//row,col
@@ -84,18 +117,70 @@ public class GUIManager {
         jb8.addActionListener(new AL8());
         jb9.addActionListener(new AL9());
 
-        frame.add(jp1);
-        frame.add(jp2);
-        jp1.add(tf1);
-        jp1.add(jb1);
-        jp1.add(tf2);
-        jp1.add(jb2);
-        jp1.add(tf3);
-        jp1.add(jb3);
-        jp1.add(tf4);
-        jp1.add(jb4);
 
-        jp2.add(jp3);
+        jl3 = new JLabel("Rank Name");
+        jl4 = new JLabel("Required Hours");
+        jl5 = new JLabel("");
+
+        tf7 = new JTextField("r1 name",20);
+        tf8 = new JTextField("r2 name",20);
+        tf9 = new JTextField("r3 name",20);
+        tf10 = new JTextField("r4 name",20);
+        tf11 = new JTextField("r5 name",20);
+        tf12 = new JTextField("r6 name",20);
+
+        tf13 = new JTextField("r1 requirement",20);
+        tf14 = new JTextField("r2 requirement",20);
+        tf15 = new JTextField("r3 requirement",20);
+        tf16 = new JTextField("r4 requirement",20);
+        tf17 = new JTextField("r5 requirement",20);
+        tf18 = new JTextField("r6 requirement",20);
+
+        jb10 = new JButton("Set Rank 1");
+        jb11 = new JButton("Set Rank 2");
+        jb12 = new JButton("Set Rank 3");
+        jb13 = new JButton("Set Rank 4");
+        jb14 = new JButton("Set Rank 5");
+        jb15 = new JButton("Set Rank 6");
+
+        frame.add(jpContainer);
+        jpContainer.add(jpContainerTop);
+        jpContainer.add(jpBottomSplit);
+        jpContainerTop.add(jpTopSetters);
+        jpContainerTop.add(jpTopSetters2);
+        jpTopSetters.add(tf1);
+        jpTopSetters.add(jb1);
+        jpTopSetters.add(tf2);
+        jpTopSetters.add(jb2);
+        jpTopSetters.add(tf3);
+        jpTopSetters.add(jb3);
+        jpTopSetters.add(tf4);
+        jpTopSetters.add(jb4);
+
+        jpTopSetters2.add(jl3);
+        jpTopSetters2.add(jl4);
+        jpTopSetters2.add(jl5);
+
+        jpTopSetters2.add(tf7);
+        jpTopSetters2.add(tf13);
+        jpTopSetters2.add(jb10);
+        jpTopSetters2.add(tf8);
+        jpTopSetters2.add(tf14);
+        jpTopSetters2.add(jb11);
+        jpTopSetters2.add(tf9);
+        jpTopSetters2.add(tf15);
+        jpTopSetters2.add(jb12);
+        jpTopSetters2.add(tf10);
+        jpTopSetters2.add(tf16);
+        jpTopSetters2.add(jb13);
+        jpTopSetters2.add(tf11);
+        jpTopSetters2.add(tf17);
+        jpTopSetters2.add(jb14);
+        jpTopSetters2.add(tf12);
+        jpTopSetters2.add(tf18);
+        jpTopSetters2.add(jb15);
+
+        jpBottomSplit.add(jp3);//add top half of bottom
         jp3.add(jp4);
         jp3.add(jp5);
 
@@ -110,7 +195,7 @@ public class GUIManager {
         jp5.add(tf6);
         jp5.add(jb9);
 
-        jp2.add(jb5);
+        jpBottomSplit.add(jb5); //adds connect
 
         frame.pack();
     }
