@@ -277,11 +277,46 @@ public class GUIManager {
             }
         }
     }
-    public class ALSetRankOne implements ActionListener {//-Points
+    public class ALSetRankOne implements ActionListener {//r1set
         @Override
         public void actionPerformed(ActionEvent e) {
             p.setRankOneName(tf7.getText(),true);
             p.setRankOneReq(Double.parseDouble(tf13.getText()),true);
+        }
+    }
+    public class ALSetRankTwo implements ActionListener {//r1set
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            p.setRankTwoName(tf8.getText(),true);
+            p.setRankTwoReq(Double.parseDouble(tf14.getText()),true);
+        }
+    }
+    public class ALSetRankThree implements ActionListener {//r1set
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            p.setRankThreeName(tf9.getText(),true);
+            p.setRankThreeReq(Double.parseDouble(tf13.getText()),true);
+        }
+    }
+    public class ALSetRankFour implements ActionListener {//r1set
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            p.setRankFourName(tf10.getText(),true);
+            p.setRankFourReq(Double.parseDouble(tf15.getText()),true);
+        }
+    }
+    public class ALSetRankFive implements ActionListener {//r1set
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            p.setRankFiveName(tf11.getText(),true);
+            p.setRankFiveReq(Double.parseDouble(tf16.getText()),true);
+        }
+    }
+    public class ALSetRankSix implements ActionListener {//r1set
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            p.setRankSixName(tf12.getText(),true);
+            p.setRankSixReq(Double.parseDouble(tf17.getText()),true);
         }
     }
 }
