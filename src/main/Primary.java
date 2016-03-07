@@ -13,32 +13,36 @@ import java.io.IOException;
  */
 public class Primary {
 
-    public static final String channel = "#dude17430";
-    private static final String oauth = "oauth:r34jjki08jh8xwpimdnp596xcoaqrm";
-    public static final String currencyName = "Dude Points";
-    private static final int pointIncrememnet = 5;
+//    public static final String channel = "";//#dude17430
+//    private static final String oauth = "";//oauth:r34jjki08jh8xwpimdnp596xcoaqrm
+//    public static final String currencyName = "";//Dude Points
 
     private TwitchBot bot;
     private int timerRewardsUpdateDelay = 5;
     private int timerHoursUpdateDelay = 1;
+    private int pointIncrememnet = 5;
     private FileManager fm;
     private GUIManager gm;
-    private String nick;
     private String username;
-    private String oauthT;
-    private String channelT;
-    private String currencyNameT;
+    private String oauth;
+    private String channel;
+    private String currencyName;
+    private boolean connected;
+    private Timer rewards;
+    private Timer hours;
 
     public Primary(){
-        nick = "dude17bot";
+        username = "dude17bot";
+        connected = false;
         try {
-            this.bot = new TwitchBot(nick);
+            this.bot = new TwitchBot(username);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (IrcException e) {
             e.printStackTrace();
         }
         bot.sendP(this);
+
     }
 
     public void startup() throws IOException, IrcException {
@@ -48,28 +52,8 @@ public class Primary {
 
         //----------------
 
-        bot.setVerbose(true);
-        bot.connect("irc.twitch.tv",6667,oauth);
+        bot.setVerbose(true);  //debugging, extra bot-side prints and shit (if remember correctly)
 
-        if(!bot.isConnected())
-            System.out.println("FAILED TO CONNECT");
-
-        bot.joinChannel(channel);
-
-        Timer rewards = new Timer(timerRewardsUpdateDelay*60000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                assignRewards();
-            }
-        });
-        Timer hours = new Timer(timerHoursUpdateDelay*60000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                assignHours();
-            }
-        });
-        rewards.start();
-        hours.start();
     }
     //TODO: Rank config/setting
     public String calcRank(String user){
@@ -97,7 +81,7 @@ public class Primary {
             System.out.print(u.getNick()+" ");
         }
         System.out.println("");
-        System.out.println("awarding done");
+//        System.out.println("awarding done");
     }
 
     private void assignHours(){
@@ -107,7 +91,7 @@ public class Primary {
             System.out.print(u.getNick()+" ");
         }
         System.out.println("");
-        System.out.println("hours'ing done");
+//        System.out.println("hours'ing done");
     }
 
     private void rewardUser(String nick){
@@ -123,29 +107,51 @@ public class Primary {
         return fm;
     }
 
-    public String getNick() {
-        return nick;
-    }
-
     public void setUsername(String s, boolean b){
         username = s;
         if(b == true)
             fm.writeConfig("username", s);
     }
     public void setOauth(String s, boolean b){
-        oauthT = s;
+        oauth = s;
         if(b == true)
             fm.writeConfig("oauth", s);
     }
     public void setChannel(String s, boolean b){
-        channelT = s;
+        channel = s;
         if(b == true)
             fm.writeConfig("channel", s);
     }
     public void setCurrencyName(String s, boolean b){
-        currencyNameT = s;
+        currencyName = s;
         if(b == true)
             fm.writeConfig("currencyname", s);
+    }
+
+    public void setPointIncrememnet(int pointIncrememnet, boolean b) {
+        this.pointIncrememnet = pointIncrememnet;
+        if(b == true)
+            fm.writeConfig("pointIncrememnet", String.valueOf(pointIncrememnet));
+    }
+
+    public int getPointIncrememnet() {
+        return pointIncrememnet;
+    }
+
+    public void setTimerRewardsUpdateDelay(int timerRewardsUpdateDelay, boolean b) {
+        this.timerRewardsUpdateDelay = timerRewardsUpdateDelay;
+        if(b == true)
+            fm.writeConfig("timerRewardsUpdateDelay", String.valueOf(timerRewardsUpdateDelay));
+    }
+
+    public void setTimerHoursUpdateDelay(int timerHoursUpdateDelay, boolean b) {
+        this.timerHoursUpdateDelay = timerHoursUpdateDelay;
+        if(b == true)
+            fm.writeConfig("timerHoursUpdateDelay", String.valueOf(timerHoursUpdateDelay));
+    }
+
+    public int getTimerRewardsUpdateDelay() {
+        return timerRewardsUpdateDelay;
     }
 
     public String getUsername() {
@@ -153,14 +159,58 @@ public class Primary {
     }
 
     public String getOauthT() {
-        return oauthT;
+        return oauth;
     }
 
     public String getChannelT() {
-        return channelT;
+        return channel;
     }
 
     public String getCurrencyNameT() {
-        return currencyNameT;
+        return currencyName;
+    }
+
+    public void  connect() throws IOException, IrcException {
+        connected = false;
+        bot.connect("irc.twitch.tv",6667,oauth);
+
+        if(!bot.isConnected())
+            System.out.println("FAILED TO CONNECT");
+
+        bot.joinChannel(channel);
+
+        rewards = new Timer(timerRewardsUpdateDelay*60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                assignRewards();
+            }
+        });
+        hours = new Timer(timerHoursUpdateDelay*60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                assignHours();
+            }
+        });
+        rewards.start();
+        hours.start();
+    }
+
+    public void resetTimers(){
+        rewards.stop();
+        hours.stop();
+        rewards = new Timer(timerRewardsUpdateDelay*60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                assignRewards();
+            }
+        });
+        hours = new Timer(timerHoursUpdateDelay*60000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                assignHours();
+            }
+        });
+        rewards.start();
+        hours.start();
     }
 }

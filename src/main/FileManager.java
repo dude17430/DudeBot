@@ -8,7 +8,7 @@ import java.io.*;
 public class FileManager {
 
     private Primary p;
-    private static final double configversion = 0.3;
+    private static final double configversion = 0.5;
 
     public FileManager(Primary primary) {
         p = primary;
@@ -46,16 +46,28 @@ public class FileManager {
                     p.setUsername(line.substring(line.indexOf(" ")+1,line.length()), false);
                 }
                 if(line.contains("oauth=")){
-                    System.out.println("LOADED - oauth: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    System.out.println("LOADED - OAuth: "+line.substring(line.indexOf(" ")+1,line.length()));
                     p.setOauth(line.substring(line.indexOf(" ")+1,line.length()), false);
                 }
                 if(line.contains("channel=")){
-                    System.out.println("LOADED - oauth: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    System.out.println("LOADED - Channel: "+line.substring(line.indexOf(" ")+1,line.length()));
                     p.setChannel(line.substring(line.indexOf(" ")+1,line.length()), false);
                 }
                 if(line.contains("currencyname=")){
-                    System.out.println("LOADED - oauth: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    System.out.println("LOADED - Currency Name: "+line.substring(line.indexOf(" ")+1,line.length()));
                     p.setCurrencyName(line.substring(line.indexOf(" ")+1,line.length()), false);
+                }
+                if(line.contains("timerRewardsUpdateDelay=")){
+                    System.out.println("LOADED - timerRewardsUpdateDelay Name: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setTimerRewardsUpdateDelay(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                }
+                if(line.contains("timerHoursUpdateDelay=")){
+                    System.out.println("LOADED - timerHoursUpdateDelay Name: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setTimerHoursUpdateDelay(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                }
+                if(line.contains("pointIncrememnet=")){
+                    System.out.println("LOADED - timerHoursUpdateDelay Name: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setPointIncrememnet(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
                 }
             }
             br.close();
@@ -81,12 +93,16 @@ public class FileManager {
             pw.println("Config_Version= "+configversion);
             pw.println("messing with the structure of this file may break the program ONLY change VALUES");
             pw.println("if it breaks rename THIS file, to generate a new one, then transfer your values");
+            pw.println("REALLY, everything should be changed through the program interface");
             pw.println("WARNING: new version of program may reset your config's, rename config before updates");
             pw.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             pw.println("username= Username");
             pw.println("oauth= OAuth");
             pw.println("channel= Channel");
             pw.println("currencyname= Currency");
+            pw.println("timerHoursUpdateDelay= 1");
+            pw.println("timerRewardsUpdateDelay= 5");
+            pw.println("pointIncrememnet= 5");
             pw.println("");
 
             pw.flush();
@@ -190,7 +206,7 @@ public class FileManager {
             fw.write(
                     "~~~Currency System Database~~~"+System.lineSeparator()+
                             "dude17430 69 69"+System.lineSeparator()+
-                            ""+p.getNick()+" 1 1");
+                            ""+p.getUsername()+" 1 1");
             fw.flush();
             fw.close();
 

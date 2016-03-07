@@ -10,13 +10,17 @@ My custom Java Bot for Twitch IRC implementing PircBot 1.5 Library <br>
     * keeps list of people who have joined channel
     * keeps track of minutes spent in channel
     * keeps track of points
-
-2. **Working On:**
     * Keep track of settings between sessions(config)
     * GUI
         - setting channel
         - setting OAuth
         - setting currency name
+
+2. **Working On:**
+    * Disconnect (without closing)
+    * GUI
+        - setting rank names
+        - setting rank requirements (hours)
         - setting !game
 3. **To Do:**
     * mini-games

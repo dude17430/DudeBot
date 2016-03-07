@@ -21,12 +21,12 @@ public class TwitchBot extends PircBot {
 
     @Override
     protected void onMessage(String channel, String sender, String login, String hostname, String message) {
-        if(channel.equalsIgnoreCase(Primary.channel)){
+        if(channel.equalsIgnoreCase(p.getChannelT())){
             if(message.equalsIgnoreCase("!game")){
                 sendMessage(channel, "My Master the Great and Mighty Dude is playing Minecraft!");
             }
             else if(message.equalsIgnoreCase("!stats")){
-                String msg = "<"+p.calcRank(sender)+"> "+sender+" is "+p.getFM().getHours(sender)+" Hours Loyal and "+p.getFM().getPoints(sender)+" "+Primary.currencyName+" rich!";
+                String msg = "<"+p.calcRank(sender)+"> "+sender+" is "+p.getFM().getHours(sender)+" Hours Loyal and "+p.getFM().getPoints(sender)+" "+p.getCurrencyNameT()+" rich!";
                 sendMessage(channel,msg);
                 //return user hours/points/rank
             }
@@ -37,7 +37,7 @@ public class TwitchBot extends PircBot {
     protected void onJoin(String channel, String sender, String login, String hostname) {
         super.onJoin(channel, sender, login, hostname);
         if(sender == "dude17bot"){
-            getUsers(Primary.channel);
+            getUsers(p.getChannelT());
         }
         p.getFM().joined(sender);
     }
