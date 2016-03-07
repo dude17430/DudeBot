@@ -3,6 +3,7 @@ package main;
 import org.jibble.pircbot.IrcException;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,8 @@ public class GUIManager {
     private JTextField tf17;
     private JTextField tf18;
 
+    private JTextField tf19;
+
     private JButton jb1;
     private JButton jb2;
     private JButton jb3;
@@ -52,19 +55,23 @@ public class GUIManager {
     private JButton jb14;
     private JButton jb15;
 
+    private JButton jb16; //mod incre points
+    private JButton jb17; //mod incre points
+
     private JPanel jpContainer;//holds containerTop and BottomSplit
-    private JPanel jpContainerTop;//holds topSetters and topSetters 2
-    private JPanel jpTopSetters;
-    private JPanel jpTopSetters2;
-    private JPanel jpBottomSplit;
-    private JPanel jp3;// holds 4 and 5
-    private JPanel jp4;//holds labels so avoid awkward sized stuff
-    private JPanel jp5;//holds incrementers for points updating
+    private JPanel jpContainerLeft;//holds topSetters and topSetters 2
+    private JPanel jpLeftTop;
+    private JPanel jpLeftBottom;
+    private JPanel jpContainerRight;
+    private JPanel jpRightTop;// holds 4 and 5
+    private JPanel jpRightTopLabels;//holds labels so avoid awkward sized stuff
+    private JPanel jpRightTopIncrementers;//holds incrementers for points updating
     private JLabel jl1;
     private JLabel jl2;
     private JLabel jl3;
     private JLabel jl4;
     private JLabel jl5;
+    private JLabel jl6;
 
     public GUIManager(Primary pr){
         p=pr;
@@ -79,24 +86,36 @@ public class GUIManager {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());//row,col
         jpContainer = new JPanel();
-        jpContainer.setLayout(new BoxLayout(jpContainer,BoxLayout.Y_AXIS));
-        jpContainerTop = new JPanel(new GridLayout(1,2));
-        jpTopSetters = new JPanel(new GridLayout(5,2));//row,col
-        jpTopSetters2 = new JPanel(new GridLayout(7,3));//row,col
-        jpBottomSplit = new JPanel(new GridLayout(2,1));//row,col
-        jp3 = new JPanel(new FlowLayout());
-        jp4 = new JPanel(new GridLayout(2,1));//row,col
-        jp5 = new JPanel(new GridLayout(2,3));//row,col
+        jpContainer.setLayout(new BoxLayout(jpContainer,BoxLayout.X_AXIS));
+        jpContainerLeft = new JPanel(new GridLayout(2,1));
+
+        jpLeftTop = new JPanel(new GridLayout(4,2));//row,col
+        TitledBorder channelconfig = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black),"Channel Settings");
+        channelconfig.setTitlePosition(TitledBorder.CENTER);
+        jpLeftTop.setBorder(channelconfig);
+
+        jpLeftBottom = new JPanel(new GridLayout(7,3));//row,col
+        TitledBorder rankTitle = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black),"Ranks");
+        rankTitle.setTitlePosition(TitledBorder.CENTER);
+        jpLeftBottom.setBorder(rankTitle);
+
+        jpContainerRight = new JPanel(new GridLayout(2,1));//row,col
+        jpRightTop = new JPanel(new FlowLayout());
+        jpRightTopLabels = new JPanel(new GridLayout(2,1));//row,col
+        jpRightTopIncrementers = new JPanel(new GridLayout(2,3));//row,col
 
         jl1 = new JLabel("Point Update Freq. (min):");
         jl2 = new JLabel("Point Update amount:");
+        jl6 = new JLabel("Mod Bonus Points:");
 
         tf1 = new JTextField(p.getChannel(),15);
         tf2 = new JTextField(p.getUsername(),20);
         tf3 = new JTextField(p.getOauthT(),20);
         tf4 = new JTextField(p.getCurrencyNameT(),20);
         tf5 = new JTextField(String.valueOf(p.getTimerRewardsUpdateDelay()),3);
+        tf5.setEditable(false);
         tf6 = new JTextField(String.valueOf(p.getPointIncrememnet()),3);
+        tf6.setEditable(false);
         jb1 = new JButton("Set Channel");
         jb2 = new JButton("Set Bot's Username");
         jb3 = new JButton("Set OAuth");
@@ -106,6 +125,11 @@ public class GUIManager {
         jb7 = new JButton("-");
         jb8 = new JButton("+");
         jb9 = new JButton("-");
+
+        tf19 = new JTextField(" ",3);
+        tf19.setEditable(false);
+        jb16 = new JButton("+");//mod bonus
+        jb17 = new JButton("-");//mod bonus
 
         jb1.addActionListener(new ALSetChannel());
         jb2.addActionListener(new ALSetUsername());
@@ -150,58 +174,58 @@ public class GUIManager {
         jb15.addActionListener(new ALSetRankSix());
 
         frame.add(jpContainer);
-        jpContainer.add(jpContainerTop);
-        jpContainer.add(jpBottomSplit);
-        jpContainerTop.add(jpTopSetters);
-        jpContainerTop.add(jpTopSetters2);
-        jpTopSetters.add(tf1);
-        jpTopSetters.add(jb1);
-        jpTopSetters.add(tf2);
-        jpTopSetters.add(jb2);
-        jpTopSetters.add(tf3);
-        jpTopSetters.add(jb3);
-        jpTopSetters.add(tf4);
-        jpTopSetters.add(jb4);
+        jpContainer.add(jpContainerLeft);
+        jpContainer.add(jpContainerRight);
+        jpContainerLeft.add(jpLeftTop);
+        jpContainerLeft.add(jpLeftBottom);
+        jpLeftTop.add(tf1);
+        jpLeftTop.add(jb1);
+        jpLeftTop.add(tf2);
+        jpLeftTop.add(jb2);
+        jpLeftTop.add(tf3);
+        jpLeftTop.add(jb3);
+        jpLeftTop.add(tf4);
+        jpLeftTop.add(jb4);
 
-        jpTopSetters2.add(jl3);
-        jpTopSetters2.add(jl4);
-        jpTopSetters2.add(jl5);
+        jpLeftBottom.add(jl3);
+        jpLeftBottom.add(jl4);
+        jpLeftBottom.add(jl5);
 
-        jpTopSetters2.add(tf7);
-        jpTopSetters2.add(tf13);
-        jpTopSetters2.add(jb10);
-        jpTopSetters2.add(tf8);
-        jpTopSetters2.add(tf14);
-        jpTopSetters2.add(jb11);
-        jpTopSetters2.add(tf9);
-        jpTopSetters2.add(tf15);
-        jpTopSetters2.add(jb12);
-        jpTopSetters2.add(tf10);
-        jpTopSetters2.add(tf16);
-        jpTopSetters2.add(jb13);
-        jpTopSetters2.add(tf11);
-        jpTopSetters2.add(tf17);
-        jpTopSetters2.add(jb14);
-        jpTopSetters2.add(tf12);
-        jpTopSetters2.add(tf18);
-        jpTopSetters2.add(jb15);
+        jpLeftBottom.add(tf7);
+        jpLeftBottom.add(tf13);
+        jpLeftBottom.add(jb10);
+        jpLeftBottom.add(tf8);
+        jpLeftBottom.add(tf14);
+        jpLeftBottom.add(jb11);
+        jpLeftBottom.add(tf9);
+        jpLeftBottom.add(tf15);
+        jpLeftBottom.add(jb12);
+        jpLeftBottom.add(tf10);
+        jpLeftBottom.add(tf16);
+        jpLeftBottom.add(jb13);
+        jpLeftBottom.add(tf11);
+        jpLeftBottom.add(tf17);
+        jpLeftBottom.add(jb14);
+        jpLeftBottom.add(tf12);
+        jpLeftBottom.add(tf18);
+        jpLeftBottom.add(jb15);
 
-        jpBottomSplit.add(jp3);//add top half of bottom
-        jp3.add(jp4);
-        jp3.add(jp5);
+        jpContainerRight.add(jpRightTop);//add top half of bottom
+        jpRightTop.add(jpRightTopLabels);
+        jpRightTop.add(jpRightTopIncrementers);
 
-        jp4.add(jl1);
-        jp4.add(jl2);
+        jpRightTopLabels.add(jl1);
+        jpRightTopLabels.add(jl2);
 
-        jp5.add(jb6);
-        jp5.add(tf5);
-        jp5.add(jb7);
+        jpRightTopIncrementers.add(jb6);
+        jpRightTopIncrementers.add(tf5);
+        jpRightTopIncrementers.add(jb7);
 
-        jp5.add(jb8);
-        jp5.add(tf6);
-        jp5.add(jb9);
+        jpRightTopIncrementers.add(jb8);
+        jpRightTopIncrementers.add(tf6);
+        jpRightTopIncrementers.add(jb9);
 
-        jpBottomSplit.add(jb5); //adds connect
+        jpContainerRight.add(jb5); //adds connect
 
         frame.pack();
     }
@@ -269,7 +293,7 @@ public class GUIManager {
             int i = p.getPointIncrememnet();
             ++i;
             p.setPointIncrememnet(i,true);
-            tf6.setText(String.valueOf(p.getTimerRewardsUpdateDelay()));
+            tf6.setText(String.valueOf(p.getPointIncrememnet()));
         }
     }
     public class ALPointsMinus implements ActionListener {//-Points
@@ -279,7 +303,7 @@ public class GUIManager {
             if(i>1){
                 --i;
                 p.setPointIncrememnet(i,true);
-                tf6.setText(String.valueOf(p.getTimerRewardsUpdateDelay()));
+                tf6.setText(String.valueOf(p.getPointIncrememnet()));
             }
         }
     }
@@ -301,7 +325,7 @@ public class GUIManager {
         @Override
         public void actionPerformed(ActionEvent e) {
             p.setRankThreeName(tf9.getText(),true);
-            p.setRankThreeReq(Double.parseDouble(tf13.getText()),true);
+            p.setRankThreeReq(Double.parseDouble(tf15.getText()),true);
         }
     }
     public class ALSetRankFour implements ActionListener {//r1set
