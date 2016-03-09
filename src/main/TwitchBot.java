@@ -22,6 +22,7 @@ public class TwitchBot extends PircBot {
     @Override
     protected void onMessage(String channel, String sender, String login, String hostname, String message) {
         if(channel.equalsIgnoreCase(p.getChannel())){
+            System.out.println(channel+"\n"+sender+"\n"+login+"\n"+hostname+"\n"+message);
             if(message.equalsIgnoreCase("!game")){
                 sendMessage(channel, "My Master the Great and Mighty Dude is playing Minecraft!");
             }
@@ -34,17 +35,18 @@ public class TwitchBot extends PircBot {
     }
 
     @Override
+    protected void onPrivateMessage(String sender, String login, String hostname, String message) {
+        super.onPrivateMessage(sender, login, hostname, message);
+        System.out.println("PRIVATE MESSAGE"+sender+"\n"+login+"\n"+hostname+"\n"+message);
+    }
+
+    @Override
     protected void onJoin(String channel, String sender, String login, String hostname) {
         super.onJoin(channel, sender, login, hostname);
         if(sender == "dude17bot"){
             getUsers(p.getChannel());
         }
         p.getFM().joined(sender);
-    }
-
-    @Override
-    protected void onPart(String channel, String sender, String login, String hostname) {
-        super.onPart(channel, sender, login, hostname);
     }
 
     public void sendP(Primary primary) {
@@ -55,5 +57,7 @@ public class TwitchBot extends PircBot {
     protected void onConnect() {
         super.onConnect();
         sendRawLine("CAP REQ :twitch.tv/membership ");
+//        sendRawLine("CAP REQ :twitch.tv/tags ");
     }
+
 }

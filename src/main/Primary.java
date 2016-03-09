@@ -21,6 +21,7 @@ public class Primary {
     private int timerRewardsUpdateDelay = 5;
     private int timerHoursUpdateDelay = 1;
     private int pointIncrememnet = 5;
+    private int modBonusPoints = 5;
     private FileManager fm;
     private GUIManager gm;
     private String username;
@@ -67,7 +68,6 @@ public class Primary {
         bot.setVerbose(true);  //debugging, extra bot-side prints and shit (if remember correctly)
 
     }
-    //TODO: Rank config/setting
     public String calcRank(String user){
         double time = fm.getHours(user);
         String rank = "";
@@ -89,25 +89,29 @@ public class Primary {
     private void assignRewards(){
         System.out.print("assigning rewards to: ");
         for(User u : bot.getUsers(channel)){
-            rewardUser(u.getNick());
+            rewardUser(u);
             System.out.print(u.getNick()+" ");
         }
         System.out.println("");
-//        System.out.println("awarding done");
     }
 
     private void assignHours(){
         System.out.print("assigning hours to: ");
         for(User u : bot.getUsers(channel)){
             hourUser(u.getNick());
+            System.out.print("["+u.getPrefix()+"]");
             System.out.print(u.getNick()+" ");
         }
         System.out.println("");
-//        System.out.println("hours'ing done");
     }
 
-    private void rewardUser(String nick){
-        try { fm.updateFile(nick, pointIncrememnet, true,"points");
+    private void rewardUser(User u){
+        try {
+            if(u.isOp()){
+                fm.updateFile(u.getNick(), pointIncrememnet+modBonusPoints, true,"points");
+            } else {
+                fm.updateFile(u.getNick(), pointIncrememnet, true,"points");
+            }
         } catch (IOException e) { e.printStackTrace(); }
     }
     private void hourUser(String nick){
@@ -121,31 +125,31 @@ public class Primary {
 
     public void setUsername(String s, boolean b){
         username = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("username", s);
     }
 
     public void setOauth(String s, boolean b){
         oauth = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("oauth", s);
     }
 
     public void setChannel(String s, boolean b){
         channel = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("channel", s);
     }
 
     public void setCurrencyName(String s, boolean b){
         currencyName = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("currencyname", s);
     }
 
     public void setPointIncrememnet(int pointIncrememnet, boolean b) {
         this.pointIncrememnet = pointIncrememnet;
-        if(b == true)
+        if(b)
             fm.writeConfig("pointIncrememnet", String.valueOf(pointIncrememnet));
     }
 
@@ -155,81 +159,87 @@ public class Primary {
 
     public void setTimerRewardsUpdateDelay(int timerRewardsUpdateDelay, boolean b) {
         this.timerRewardsUpdateDelay = timerRewardsUpdateDelay;
-        if(b == true)
+        if(b)
             fm.writeConfig("timerRewardsUpdateDelay", String.valueOf(timerRewardsUpdateDelay));
     }
 
     public void setTimerHoursUpdateDelay(int timerHoursUpdateDelay, boolean b) {
         this.timerHoursUpdateDelay = timerHoursUpdateDelay;
-        if(b == true)
+        if(b)
             fm.writeConfig("timerHoursUpdateDelay", String.valueOf(timerHoursUpdateDelay));
     }
 
     public void setRankOneName(String s, Boolean b) {
         rankOneName = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankOneName", rankOneName);
     }
     public void setRankTwoName(String s, Boolean b) {
         rankTwoName = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankTwoName", rankTwoName);
     }
     public void setRankThreeName(String s, Boolean b) {
         rankThreeName = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankThreeName", rankThreeName);
     }
     public void setRankFourName(String s, Boolean b) {
         rankFourName = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankFourName", rankFourName);
     }
     public void setRankFiveName(String s, Boolean b) {
         rankFiveName = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankFiveName", rankFiveName);
     }
     public void setRankSixName(String s, Boolean b) {
         rankSixName = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankSixName", rankSixName);
     }
 
     public void setRankOneReq(double s, Boolean b) {
         this.rankOneReq = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankOneReq", String.valueOf(rankOneReq));
     }
 
     public void setRankTwoReq(double s, Boolean b) {
         this.rankTwoReq = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankTwoReq", String.valueOf(rankTwoReq));
     }
 
     public void setRankThreeReq(double s, Boolean b) {
         this.rankThreeReq = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankThreeReq", String.valueOf(rankThreeReq));
     }
 
     public void setRankFourReq(double s, Boolean b) {
         this.rankFourReq = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankFourReq", String.valueOf(rankFourReq));
     }
 
     public void setRankFiveReq(double s, Boolean b) {
         this.rankFiveReq = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankFiveReq", String.valueOf(rankFiveReq));
     }
 
     public void setRankSixReq(double s, Boolean b) {
         this.rankSixReq = s;
-        if(b == true)
+        if(b)
             fm.writeConfig("rankSixReq", String.valueOf(rankSixReq));
+    }
+
+    public void setModBonusPoints(int i, boolean b) {
+        this.modBonusPoints = i;
+        if(b)
+            fm.writeConfig("modBonusPoints", String.valueOf(modBonusPoints));
     }
 
     public int getTimerRewardsUpdateDelay() {
@@ -342,4 +352,9 @@ public class Primary {
     public double getRankSixReq() {
         return rankSixReq;
     }
+
+    public int getModBonusPoints() {
+        return modBonusPoints;
+    }
+
 }

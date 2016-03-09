@@ -101,12 +101,15 @@ public class GUIManager {
 
         jpContainerRight = new JPanel(new GridLayout(2,1));//row,col
         jpRightTop = new JPanel(new FlowLayout());
-        jpRightTopLabels = new JPanel(new GridLayout(2,1));//row,col
-        jpRightTopIncrementers = new JPanel(new GridLayout(2,3));//row,col
+        jpRightTopLabels = new JPanel(new GridLayout(3,1));//row,col
+        jpRightTopIncrementers = new JPanel(new GridLayout(3,3));//row,col
 
         jl1 = new JLabel("Point Update Freq. (min):");
         jl2 = new JLabel("Point Update amount:");
         jl6 = new JLabel("Mod Bonus Points:");
+        jl1.setPreferredSize(new Dimension(140,25));
+        jl2.setPreferredSize(new Dimension(140,25));
+        jl6.setPreferredSize(new Dimension(140,25));
 
         tf1 = new JTextField(p.getChannel(),15);
         tf2 = new JTextField(p.getUsername(),20);
@@ -127,9 +130,12 @@ public class GUIManager {
         jb9 = new JButton("-");
 
         tf19 = new JTextField(" ",3);
+        tf19.setText(String.valueOf(p.getModBonusPoints()));
         tf19.setEditable(false);
         jb16 = new JButton("+");//mod bonus
+        jb16.addActionListener(new ALMBPAdd());
         jb17 = new JButton("-");//mod bonus
+        jb17.addActionListener(new ALMBPMinus());
 
         jb1.addActionListener(new ALSetChannel());
         jb2.addActionListener(new ALSetUsername());
@@ -216,6 +222,7 @@ public class GUIManager {
 
         jpRightTopLabels.add(jl1);
         jpRightTopLabels.add(jl2);
+        jpRightTopLabels.add(jl6);
 
         jpRightTopIncrementers.add(jb6);
         jpRightTopIncrementers.add(tf5);
@@ -224,6 +231,10 @@ public class GUIManager {
         jpRightTopIncrementers.add(jb8);
         jpRightTopIncrementers.add(tf6);
         jpRightTopIncrementers.add(jb9);
+
+        jpRightTopIncrementers.add(jb16);
+        jpRightTopIncrementers.add(tf19);
+        jpRightTopIncrementers.add(jb17);
 
         jpContainerRight.add(jb5); //adds connect
 
@@ -347,6 +358,26 @@ public class GUIManager {
         public void actionPerformed(ActionEvent e) {
             p.setRankSixName(tf12.getText(),true);
             p.setRankSixReq(Double.parseDouble(tf17.getText()),true);
+        }
+    }
+    public class ALMBPAdd implements ActionListener {//+MBP
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int i = p.getModBonusPoints();
+            ++i;
+            p.setModBonusPoints(i,true);
+            tf19.setText(String.valueOf(p.getModBonusPoints()));
+        }
+    }
+    public class ALMBPMinus implements ActionListener {//-MBP
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int i = p.getModBonusPoints();
+            if(i>0){
+                --i;
+                p.setModBonusPoints(i,true);
+                tf19.setText(String.valueOf(p.getModBonusPoints()));
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ import java.io.*;
 public class FileManager {
 
     private Primary p;
-    private static final double configversion = 6.0;
+    private static final double configversion = 6.3;
 
     public FileManager(Primary primary) {
         p = primary;
@@ -120,6 +120,10 @@ public class FileManager {
                     System.out.println("LOADED - rankSixReq: "+line.substring(line.indexOf(" ")+1,line.length()));
                     p.setRankSixReq(Double.parseDouble(line.substring(line.indexOf(" ")+1,line.length())), false);
                 }
+                if(line.contains("modBonusPoints=")){
+                    System.out.println("LOADED - modBonusPoints: "+line.substring(line.indexOf(" ")+1,line.length()));
+                    p.setModBonusPoints(Integer.parseInt(line.substring(line.indexOf(" ")+1,line.length())), false);
+                }
             }
             br.close();
             br2.close();
@@ -166,6 +170,7 @@ public class FileManager {
             pw.println("rankFourReq= 50");
             pw.println("rankFiveReq= 100");
             pw.println("rankSixReq= 200");
+            pw.println("modBonusPoints= 2");
             pw.println("");
 
             pw.flush();
