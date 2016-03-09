@@ -22,7 +22,6 @@ public class TwitchBot extends PircBot {
     @Override
     protected void onMessage(String channel, String sender, String login, String hostname, String message) {
         if(channel.equalsIgnoreCase(p.getChannel())){
-            System.out.println(channel+"\n"+sender+"\n"+login+"\n"+hostname+"\n"+message);
             if(message.equalsIgnoreCase("!game")){
                 sendMessage(channel, "My Master the Great and Mighty Dude is playing Minecraft!");
             }
@@ -32,12 +31,6 @@ public class TwitchBot extends PircBot {
                 //return user hours/points/rank
             }
         }else{System.out.println(channel);}
-    }
-
-    @Override
-    protected void onPrivateMessage(String sender, String login, String hostname, String message) {
-        super.onPrivateMessage(sender, login, hostname, message);
-        System.out.println("PRIVATE MESSAGE"+sender+"\n"+login+"\n"+hostname+"\n"+message);
     }
 
     @Override
@@ -60,4 +53,11 @@ public class TwitchBot extends PircBot {
 //        sendRawLine("CAP REQ :twitch.tv/tags ");
     }
 
+    @Override
+    protected void onUserMode(String targetNick, String sourceNick, String sourceLogin, String sourceHostname, String mode) {
+        super.onUserMode(targetNick, sourceNick, sourceLogin, sourceHostname, mode);
+        String name = mode.substring(mode.lastIndexOf(' '), mode.length());
+        System.out.println("user mode "+name+" | mode: "+mode);
+//        p.getFM().writeNewMod(targetNick);
+    }
 }

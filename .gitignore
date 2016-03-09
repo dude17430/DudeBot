@@ -1,4 +1,5 @@
 file.txt
 .idea
-tempfile*
+temp*
 BotConfig*
+modsList.txt

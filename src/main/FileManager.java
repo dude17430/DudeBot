@@ -182,11 +182,11 @@ public class FileManager {
 
     public void updateFile(String name, int pointAdgustmnet, boolean adding, String mode) throws IOException {
         if(mode.equals("points")){
-            int newPoints = 0;
+            int newPoints;
             File originalFile = new File("file.txt");
 
             if(!originalFile.exists()){
-                createFile();
+                createPointsFile();
             }
 
             BufferedReader br = new BufferedReader(new FileReader(originalFile));
@@ -194,7 +194,7 @@ public class FileManager {
             File tempFile = new File("tempfile.txt");
             PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
 
-            String line = null;
+            String line;
 //-------------------------------------------------------------------------
             // read + modify data
             while ((line = br.readLine()) != null) {
@@ -228,7 +228,7 @@ public class FileManager {
             File originalFile = new File("file.txt");
 
             if(!originalFile.exists()){
-                createFile();
+                createPointsFile();
             }
 
             BufferedReader br = new BufferedReader(new FileReader(originalFile));
@@ -236,7 +236,7 @@ public class FileManager {
             File tempFile = new File("tempfile.txt");
             PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
 
-            String line = null;
+            String line;
 //-------------------------------------------------------------------------
             // read + modify data
             while ((line = br.readLine()) != null) {
@@ -267,7 +267,7 @@ public class FileManager {
         }
     }
 
-    private void createFile() {
+    private void createPointsFile() {
         try {
 
             FileWriter fw = new FileWriter("file.txt");
@@ -294,7 +294,7 @@ public class FileManager {
                 br = new BufferedReader(new FileReader(originalFile));
                 PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
 
-                String line = null;
+                String line;
                 while ((line = br.readLine()) != null) {
                     if (line.contains(sender)) {
                         exists = true;
@@ -415,6 +415,73 @@ public class FileManager {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void writeNewMod(String nameToAdd){
+        File originalFile = new File("modsList.txt");
+        File tempFile = new File("tempModList.txt");
+        boolean exists = false;
+        String line;
+
+        if(!originalFile.exists()){
+            createModsFile();
+        }
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(originalFile));
+            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+
+            while((line = br.readLine()) != null){
+                if(line.contains(nameToAdd)){
+                    exists = true;
+                    break;
+                }
+                pw.println(line);
+                pw.flush();
+            }
+            System.out.println(nameToAdd+" modlist "+exists);
+            if(!exists){
+                pw.println(nameToAdd);
+                pw.flush();
+
+                pw.close();
+                br.close();
+                // Delete the original file
+                if (!originalFile.delete()) {
+                    System.out.println("Could not delete file");
+                }
+
+                // Rename the new file to the filename the original file had.
+                if (!tempFile.renameTo(originalFile))
+                    System.out.println("Could not rename file");
+            }
+            else {
+                pw.close();
+                br.close();
+                tempFile.delete();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void createModsFile() {
+        try {
+
+            FileWriter fw = new FileWriter("modsList.txt");
+            fw.write(
+                    "~~~Channel Mods Database~~~"+System.lineSeparator()+
+                            "dude17430");
+            fw.flush();
+            fw.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
